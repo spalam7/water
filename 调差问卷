@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>净水器租赁服务市场调研</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
+            color: #333;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        /* 水滴背景容器 */
+        #water-drop-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        /* 水滴样式 */
+        .water-drop {
+            position: absolute;
+            background: rgba(135, 206, 250, 0.15);
+            border-radius: 50%;
+            animation: drop-fall linear infinite;
+        }
+        
+        /* 水滴动画 */
+        @keyframes drop-fall {
+            0% {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 120, 200, 0.1);
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(173, 216, 230, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #e1f5fe;
+        }
+        
+        .header h1 {
+            color: #0288d1;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .header h1:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #4fc3f7, transparent);
+            border-radius: 2px;
+        }
+        
+        .header p {
+            color: #546e7a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .survey-info {
+            background-color: #e1f5fe;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #0288d1;
+            font-size: 0.95rem;
+            color: #37474f;
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            color: #0277bd;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #b3e5fc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title:before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #4fc3f7;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .question-group {
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #01579b;
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .option label {
+            cursor: pointer;
+            color: #37474f;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #b3e5fc;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: border 0.3s;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #0288d1;
+            box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.1);
+        }
+        
+        .conditional {
+            display: none;
+            margin-top: 20px;
+            padding-left: 20px;
+            border-left: 3px solid #b3e5fc;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e1f5fe;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #0288d1, #03a9f4);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(2, 136, 209, 0.2);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(2, 136, 209, 0.3);
+            background: linear-gradient(to right, #0277bd, #039be5);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            color: #78909c;
+            font-size: 0.9rem;
+        }
+        
+        .required:after {
+            content: " *";
+            color: #f44336;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 水滴背景 -->
+    <div id="water-drop-background"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>净水器租赁服务市场调研</h1>
+            <p>您好！我们正在筹划一项全新的家庭净水器租赁服务，旨在为您提供更省心、更经济的健康饮水解决方案。本问卷仅需3-5分钟，您的宝贵意见将帮助我们为您提供更好的服务！</p>
+        </div>
+        
+        <div class="survey-info">
+            <p>填写说明：问卷包含基本信息、使用现状、服务意向等部分，请根据您的实际情况填写。我们承诺对您的信息严格保密，仅用于市场分析。</p>
+        </div>
+        
+        <form id="survey-form">
+            <!-- 第一部分：基本信息 -->
+            <div class="form-section">
+                <div class="section-title">第一部分：基本信息</div>
+                
+                <div class="question-group">
+                    <div class="question required">1. 您的性别：</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="gender_male" name="gender" value="男" required>
+                            <label for="gender_male">男</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="gender_female" name="gender" value="女" required>
+                            <label for="gender_female">女</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-group">
+                    <div class="question required">2. 您的年龄段：</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="age_1" name="age" value="25岁以下" required>
+                            <label for="age_1">25岁以下</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="age_2" name="age" value="26-35岁" required>
+                            <label for="age_2">26-35岁</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="age_3" name="age" value="36-50岁" required>
+                            <label for="age_3">36-50岁</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="age_4" name="age" value="50岁以上" required>
+                            <label for="age_4">50岁以上</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-group">
+                    <div class="question required">3. 您目前的居住情况：</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="living_1" name="living" value="自有住房" required>
+                            <label for="living_1">自有住房</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="living_2" name="living" value="租房" required>
+                            <label for="living_2">租房</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="living_3" name="living" value="其他" required>
+                            <label for="living_3">其他</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二部分：净水器使用现状 -->
+            <div class="form-section">
+                <div class="section-title">第二部分：净水器使用现状</div>
+                
+                <div class="question-group">
+                    <div class="question required">4. 您家目前安装了净水器吗？</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="installed_no" name="installed" value="没有安装" required>
+                            <label for="installed_no">没有安装</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="installed_yes" name="installed" value="已安装" required>
+                            <label for="installed_yes">已安装</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 条件显示部分：已安装净水器的用户回答 -->
+                <div id="installed_conditional" class="conditional">
+                    <div class="question-group">
+                        <div class="question">5. 您知道您家现有净水器的滤芯类型吗？</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="filter_1" name="filter_type" value="PP棉+活性炭">
+                                <label for="filter_1">PP棉+活性炭（基础过滤）</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="filter_2" name="filter_type" value="超滤(UF)">
+                                <label for="filter_2">超滤(UF)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="filter_3" name="filter_type" value="反渗透(RO)">
+                                <label for="filter_3">反渗透(RO)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="filter_4" name="filter_type" value="不知道">
+                                <label for="filter_4">不知道</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question">6. 您认为您家净水器过滤出的水可以直接饮用吗？</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="drink_1" name="drinkable" value="可以，我一直直饮">
+                                <label for="drink_1">可以，我一直直饮</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="drink_2" name="drinkable" value="不可以，我还会烧开">
+                                <label for="drink_2">不可以，我还会烧开</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="drink_3" name="drinkable" value="不确定">
+                                <label for="drink_3">不确定</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question">7. 您对现有净水器最不满意的地方是？【可多选】</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_1" name="dissatisfaction" value="滤芯更换太贵">
+                                <label for="dissatisfy_1">滤芯更换太贵</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_2" name="dissatisfaction" value="更换流程麻烦">
+                                <label for="dissatisfy_2">更换流程麻烦</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_3" name="dissatisfaction" value="出水速度慢">
+                                <label for="dissatisfy_3">出水速度慢</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_4" name="dissatisfaction" value="品牌不知名，担心质量">
+                                <label for="dissatisfy_4">品牌不知名，担心质量</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_5" name="dissatisfaction" value="担心过滤效果，仍不敢直饮">
+                                <label for="dissatisfy_5">担心过滤效果，仍不敢直饮</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_6" name="dissatisfaction" value="占用空间大">
+                                <label for="dissatisfy_6">占用空间大</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="dissatisfy_7" name="dissatisfaction" value="其他">
+                                <label for="dissatisfy_7">其他</label>
+                                <input type="text" class="text-input" id="dissatisfy_other" name="dissatisfaction_other" placeholder="请说明" style="width: 200px; margin-left: 10px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三部分：租赁服务意向调查 -->
+            <div class="form-section">
+                <div class="section-title">第三部分：租赁服务意向调查</div>
+                
+                <div class="question-group">
+                    <div class="question">8. 如果有一种净水器租赁服务：</div>
+                    <div class="survey-info" style="margin-bottom: 15px; background-color: #f1f8e9; border-left-color: #7cb342;">
+                        <p>• 支付押金后免费安装高端RO反渗透净水器<br>
+                           • 租赁期间所有滤芯免费更换<br>
+                           • 机器故障免费维修<br>
+                           • 用满两年可退押金和机器</p>
+                    </div>
+                    <div class="question required">您对此的态度是：</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="interest_1" name="interest" value="非常感兴趣，这正是我需要的" required>
+                            <label for="interest_1">非常感兴趣，这正是我需要的</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="interest_2" name="interest" value="有兴趣，但想了解更多细节" required>
+                            <label for="interest_2">有兴趣，但想了解更多细节</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="interest_3" name="interest" value="更倾向于一次性购买" required>
+                            <label for="interest_3">更倾向于一次性购买</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="interest_4" name="interest" value="没兴趣" required>
+                            <label for="interest_4">没兴趣</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-group">
+                    <div class="question">9. 对于租赁模式，您最大的顾虑是？【可多选】</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="checkbox" id="concern_1" name="concern" value="机器卫生问题（是否别人用过）">
+                            <label for="concern_1">机器卫生问题（是否别人用过）</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="concern_2" name="concern" value="服务质量（维修、换芯是否及时）">
+                            <label for="concern_2">服务质量（维修、换芯是否及时）</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="concern_3" name="concern" value="机器品牌和质量可靠性">
+                            <label for="concern_3">机器品牌和质量可靠性</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="concern_4" name="concern" value="长期租赁不划算">
+                            <label for="concern_4">长期租赁不划算</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="concern_5" name="concern" value="觉得没必要">
+                            <label for="concern_5">觉得没必要</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="concern_6" name="concern" value="其他">
+                            <label for="concern_6">其他</label>
+                            <input type="text" class="text-input" id="concern_other" name="concern_other" placeholder="请说明" style="width: 200px; margin-left: 10px;">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-group">
+                    <div class="question">10. 您对"全屋净水"（所有出水点都是净化水）有需求吗？</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="whole_house_1" name="whole_house" value="很有需求，希望全屋净水">
+                            <label for="whole_house_1">很有需求，希望全屋净水</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="whole_house_2" name="whole_house" value="只需要厨房饮用水净化">
+                            <label for="whole_house_2">只需要厨房饮用水净化</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="whole_house_3" name="whole_house" value="不确定">
+                            <label for="whole_house_3">不确定</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第四部分：决策因素与联系 -->
+            <div class="form-section">
+                <div class="section-title">第四部分：决策因素与联系</div>
+                
+                <div class="question-group">
+                    <div class="question required">11. 在决定安装净水器时，哪个因素对您最重要？</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="factor_1" name="decision_factor" value="过滤效果" required>
+                            <label for="factor_1">过滤效果（能彻底去除重金属、水垢）</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="factor_2" name="decision_factor" value="使用成本" required>
+                            <label for="factor_2">使用成本（总花费）</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="factor_3" name="decision_factor" value="品牌知名度" required>
+                            <label for="factor_3">品牌知名度</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="factor_4" name="decision_factor" value="服务体验" required>
+                            <label for="factor_4">服务体验（是否省心）</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-group">
+                    <div class="question">12. 您是否愿意接受免费上门水质检测服务？</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="test_yes" name="water_test" value="愿意">
+                            <label for="test_yes">愿意</label>
+                            <div id="contact_field" style="display: none; margin-top: 10px;">
+                                <input type="text" class="text-input" id="contact_info" name="contact_info" placeholder="请输入您的联系电话" style="width: 300px;">
+                            </div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="test_no" name="water_test" value="暂时不需要">
+                            <label for="test_no">暂时不需要</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 提交按钮 -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">提交问卷</button>
+                <p class="footer-note">感谢您抽出宝贵时间参与本次调研！您的意见对我们至关重要。</p>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // 动态生成水滴背景
+        function createWaterDrops() {
+            const background = document.getElementById('water-drop-background');
+            const dropCount = 25; // 水滴数量
+            
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'water-drop';
+                
+                // 随机大小 (10px - 40px)
+                const size = Math.random() * 30 + 10;
+                drop.style.width = `${size}px`;
+                drop.style.height = `${size}px`;
+                
+                // 随机位置
+                drop.style.left = `${Math.random() * 100}%`;
+                
+                // 随机透明度
+                drop.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                // 随机动画时长 (8s - 20s)
+                const duration = Math.random() * 12 + 8;
+                drop.style.animationDuration = `${duration}s`;
+                
+                // 随机动画延迟
+                drop.style.animationDelay = `${Math.random() * 5}s`;
+                
+                background.appendChild(drop);
+            }
+        }
+        
+        // 条件显示逻辑：已安装净水器的用户显示额外问题
+        document.querySelectorAll('input[name="installed"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const conditionalSection = document.getElementById('installed_conditional');
+                if (this.value === '已安装') {
+                    conditionalSection.style.display = 'block';
+                } else {
+                    conditionalSection.style.display = 'none';
+                    // 清除条件部分的选择
+                    conditionalSection.querySelectorAll('input').forEach(input => {
+                        if (input.type === 'radio' || input.type === 'checkbox') {
+                            input.checked = false;
+                        } else if (input.type === 'text') {
+                            input.value = '';
+                        }
+                    });
+                }
+            });
+        });
+        
+        // 条件显示逻辑：愿意接受水质检测的用户显示联系方式输入框
+        document.querySelectorAll('input[name="water_test"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const contactField = document.getElementById('contact_field');
+                if (this.value === '愿意') {
+                    contactField.style.display = 'block';
+                    document.getElementById('contact_info').required = true;
+                } else {
+                    contactField.style.display = 'none';
+                    document.getElementById('contact_info').required = false;
+                }
+            });
+        });
+        
+        // 表单提交处理
+        document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 这里可以添加表单验证
+            
+            // 收集表单数据
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                // 处理多选框
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            });
+            
+            // 在实际应用中，这里应该将数据发送到服务器
+            console.log('收集到的问卷数据:', data);
+            
+            // 显示感谢信息
+            alert('感谢您参与本次调研！您的意见已成功提交。');
+            this.reset();
+            
+            // 重置条件显示部分
+            document.getElementById('installed_conditional').style.display = 'none';
+            document.getElementById('contact_field').style.display = 'none';
+        });
+        
+        // 初始化水滴背景
+        window.addEventListener('load', createWaterDrops);
+        
+        // 窗口大小变化时重新生成水滴背景（保持响应式）
+        window.addEventListener('resize', function() {
+            const background = document.getElementById('water-drop-background');
+            background.innerHTML = '';
+            createWaterDrops();
+        });
+    </script>
+</body>
+</html>
